@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config3": "^1.0.3",
     "express": "^4.16.4",
     "prettier": "^1.15.3",
+    "request": "^2.88.0",
     "socket.io": "^2.2.0"
   }
 }
