@@ -1,11 +1,21 @@
+const { resolve } = require("url");
 const app = require("express")();
 const request = require("request");
+const config = require("config3");
 
-app.post("/api/voice", (req, res) => {
+app.post("/api/voice", (req, res, next) => {
   try {
-    req.pipe(request());
+    return req
+      .pipe(request(resolve(config.brain, "/api/voice")))
+      .on("error", e => {
+        console.error(e);
+      })
+      .pipe(res)
+      .on("error", e => {
+        console.error(e);
+      });
   } catch (e) {
-    next(e);
+    return next(e);
   }
 });
 
