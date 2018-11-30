@@ -1,40 +1,11 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png">
-    <router-view/>-->
-    <div class="header">
-      <button id="header" @click="moveToHeader">Header</button>
-    </div>
-    <div class="container">
-      <div class="navbar">
-        <button id="navbar" @click="moveToNavbar">Navbar</button>
-      </div>
-      <div class="content">
-        <button id="content" @click="moveToContent">Content</button>
-        <button id="content" @click="moveToUnknown">Unknown</button>
-        <button id="content" @click="speak">Speak</button>
-      </div>
-    </div>
-    <div class="footer">
-      <button id="footer" @click="moveToFooter">Footer</button>
-    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Agent from "@/Agent";
-
-// import io from 'socket.io-client';
-// const socket = io('http://b8473681.ngrok.io/');
-
-// socket.on('connect', () => {
-//     console.log('connect');
-// });
-// socket.on('command', (data) => {
-//     console.log(data);
-// });
-// socket.on('disconnect', () => {});
-
 import AudioRecorder from "./utils/audio";
 import defaultState, { dispatch } from "./utils/state";
 
