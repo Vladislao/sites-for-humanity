@@ -7,12 +7,6 @@ import Agent from './Agent'
 import router from './router'
 
 Vue.config.productionTip = false
-
-clippy.load('Genie', (agent) => {
-  agent.show();
-  new Agent(agent)
-});
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
