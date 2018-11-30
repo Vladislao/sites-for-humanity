@@ -10,9 +10,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "socket.io-client": "^2.2.0",
     "clippyjs": "0.0.3",
+    "socket.io-client": "^2.2.0",
     "vue": "^2.5.2",
+    "vue-head": "^2.1.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
