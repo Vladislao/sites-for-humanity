@@ -4,21 +4,13 @@ import clippy from "clippyjs";
 import Vue from "vue";
 import VueHead from "vue-head";
 
-// initialize audio recoreder
-// import audio from "./utils/audio";
-
 import App from "./App";
 import Agent from "./Agent";
 import router from "./router";
 
-Vue.config.productionTip = false;
-
-clippy.load("Genie", agent => {
-  agent.show();
-  new Agent(agent);
-});
-
 Vue.use(VueHead);
+
+Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

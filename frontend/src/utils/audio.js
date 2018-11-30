@@ -66,7 +66,7 @@ export default class AudioController {
 
       console.log("sending wav...");
       request.send(data);
-      // this.onAction([{ some: "state" }]);
+      this.onAction([{ some: "state" }]);
     });
 
     this.recorder.clear();
