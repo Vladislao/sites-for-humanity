@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import clippy from "clippyjs";
+import Agent from "./Agent";
 import VueHead from "vue-head";
 import BootstrapVue from 'bootstrap-vue'
 import router from './router'
