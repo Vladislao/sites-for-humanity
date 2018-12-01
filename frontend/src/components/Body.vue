@@ -1,8 +1,8 @@
 <template>
     <div id="body">
-        <panel-component v-if="data.leftPanel"></panel-component>
+        <panel-component v-if="config.leftPanel.display" v-bind:config="config.leftPanel"></panel-component>
         <content-component v-bind:data="data.content" />
-        <panel-component v-if="data.rightPanel"></panel-component>
+        <panel-component v-if="config.rightPanel.display" v-bind:config="config.rightPanel"></panel-component>
     </div>
 </template>
 
@@ -16,10 +16,9 @@
             'panel-component': Panel,
             'content-component': Content
         },
-        props: ['data'],
+        props: ['config'],
         data: () => {
             return {
-                title: 'right menu'
             }
         }
     }

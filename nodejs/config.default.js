@@ -1,3 +1,3 @@
 module.exports = {
-  brain: "http://localhost:3002"
+  brain: "http://241bac18.ngrok.io/"
 };

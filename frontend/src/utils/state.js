@@ -7,16 +7,32 @@ export const dispatch = (state, actions) => {
 
 export default {
   header: {
+    display: true
+  },
+  navBar: {
     display: true,
     nav: {
       display: true,
+      style: {
+        backgroundColor: null,
+        variant: 'info',
+        type: 'dark'
+      },
       brand: {
         display: true,
         text: "Brend",
-        imgSrc: "https://placekitten.com/g/30/30"
+        imgSrc: "https://placekitten.com/g/30/30",
+        style: {
+          backgroundColor: null,
+          color: null
+        },
       },
       nav: {
         display: true,
+        style: {
+          backgroundColor: null,
+          color: null
+        },
         items: [
           {
             text: "Active",
@@ -34,8 +50,38 @@ export default {
       }
     }
   },
-  rightPanel: false,
-  leftPanel: false,
+  rightPanel: {
+    display: true,
+    nav: {
+      display: true,
+      items: [
+          {
+              text: 'Item 1',
+              url: ''
+          },
+          {
+              text: 'Item 2',
+              url: ''
+          },
+      ]
+    }
+  },
+  leftPanel: {
+    display: true,
+    nav: {
+      display: true,
+      items: [
+          {
+              text: 'Мишки',
+              url: ''
+          },
+          {
+              text: 'Шишки',
+              url: ''
+          },
+      ]
+    }
+  },
   footer: false,
   content: {
     left: [

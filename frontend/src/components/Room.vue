@@ -1,13 +1,15 @@
 <template>
   <div class="wrapper">
-    <header-component v-if="config.header.display" v-bind:config="config.header"></header-component>
-    <body-component v-bind:data="config"></body-component>
+    <header-component v-if="config.header.display"></header-component>
+    <nav-component v-if="config.navBar.display" v-bind:config="config.navBar.nav"></nav-component>
+    <body-component v-bind:config="config"></body-component>
     <footer-component v-if="config.footer"></footer-component>
   </div>
 </template>
 
 <script>
 import Header from "./Header.vue";
+import Nav from './Nav.vue';
 import Body from "./Body.vue";
 import Footer from "./Footer.vue";
 import defaultState, { dispatch } from "@/utils/state";
@@ -16,6 +18,7 @@ export default {
   name: "Room",
   components: {
     "header-component": Header,
+    "nav-component": Nav,
     "body-component": Body,
     "footer-component": Footer
   },

@@ -80,7 +80,7 @@ body {
   flex-direction: column;
   min-height: 100%;
 }
-.header {
+/* .header {
   border: 1px solid black;
   min-height: 100px;
 }
@@ -100,7 +100,7 @@ body {
 .content {
   border: 1px solid black;
   flex-grow: 1;
-}
+} */
 /* .clippy, .clippy-balloon {
   position: absolute
 } */
