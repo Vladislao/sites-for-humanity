@@ -1,7 +1,7 @@
 <template>
     <div id="body">
         <panel-component v-if="config.leftPanel.display" v-bind:config="config.leftPanel"></panel-component>
-        <content-component v-bind:data="data.content" />
+        <content-component v-bind:data="config.content" />
         <panel-component v-if="config.rightPanel.display" v-bind:config="config.rightPanel"></panel-component>
     </div>
 </template>
