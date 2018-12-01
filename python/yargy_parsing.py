@@ -40,9 +40,11 @@ RELEVANCY_KEYWORDS = {
 
     'слева от': 'toleft',
     'слева': 'toleft',
+    'лево': 'toleft',
 
     'справа от': 'toright',
     'справа': 'toright',
+    'право': 'toright',
 
     'в': 'in',
 }
