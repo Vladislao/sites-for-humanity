@@ -10,6 +10,7 @@
 import Header from "./Header.vue";
 import Body from "./Body.vue";
 import Footer from "./Footer.vue";
+import defaultState, { dispatch } from "@/utils/state";
 
 export default {
   name: "Room",
@@ -19,41 +20,7 @@ export default {
     "footer-component": Footer
   },
   data: () => {
-    return {
-      config: {
-        header: {
-          display: true,
-          nav: {
-            display: true,
-            brand: {
-              display: true,
-              text: "Brend",
-              imgSrc: "https://placekitten.com/g/30/30"
-            },
-            nav: {
-              display: true,
-              items: [
-                {
-                  text: "Active",
-                  url: ""
-                },
-                {
-                  text: "Link",
-                  url: ""
-                },
-                {
-                  text: "Another Link",
-                  url: ""
-                }
-              ]
-            }
-          }
-        },
-        rightPanel: false,
-        leftPanel: false,
-        footer: false
-      }
-    };
+    return {config: defaultState};
   }
 };
 </script>
