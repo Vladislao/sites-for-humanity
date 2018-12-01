@@ -3,6 +3,15 @@ from yargy.predicates import dictionary, normalized, gram
 from yargy.interpretation import fact
 from yargy.pipelines import morph_pipeline
 
+import re
+import pymorphy2
+
+import images
+
+RE_WORDS = re.compile(r'[а-яА-Яa-zA-Z0-9]+')
+morph = pymorphy2.MorphAnalyzer()
+
+
 Relevancy = fact(
     'Relevancy',
     ['relevancy', 'item']
@@ -39,11 +48,26 @@ RELEVANCY = morph_pipeline(
 
 ITEM_KEYWORDS = {
     'навигационный меню': 'navbar',
+    'боковой меню': 'navbar',
     'меню': 'navbar',
+    'под меню': 'menuitem',
+    'пункт меню': 'menuitem',
+    'пункт': 'menuitem',
     'заголовок': 'header',
     'шапка': 'header',
     'подвал': 'footer',
-    'блок': 'block',
+    'блок': 'text',
+    'блок с текст': 'text',
+    'текстовый блок': 'text',
+    'логотип': 'logo',
+    'картинка': 'image',
+    'картинка на фон': 'image',
+    'текст': 'text',
+    'абзац с текст': 'text',
+    'кнопка с текст': 'button',
+    'кнопка': 'button',
+    'ссылка с текст': 'href',
+    'ссылка': 'href',
 }
 
 ITEM = morph_pipeline(
@@ -80,6 +104,8 @@ USE_COLOR = or_(
 )
 
 COMMAND_KEYWORDS = {
+    'редактировать': 'edit',
+    'редактирование': 'edit',
     'создать': 'create',
     'добавить': 'create',
     'удалить': 'delete',
@@ -124,13 +150,60 @@ TEST_CASES_2 = [
     'создай под шапкой меню',
 ]
 
-# test
-# for text in TEST_CASES_2:
-#     print('-')
-#     print(text)
-#     for match in parser.findall(text):
-#         print([_.value for _ in match.tokens])
-#         print(match.fact)
+TEST_CASES_3 = [
+    'добавь кнопку с текстом сохранить',
+    'добавь пункт меню о компании',
+    'добавь текст я хожу гуляю по москве',
+]
+
+for text in TEST_CASES_3:
+    print('-')
+    print(text)
+    for match in parser.findall(text):
+        print([_.value for _ in match.tokens])
+        print(match.fact)
+
+
+def find_free_text(text):
+    original = [word for word in RE_WORDS.findall(text)]
+    normalized = [morph.parse(word.lower())[0].normal_form for word in original]
+
+    print(normalized)
+    try:
+        i1 = normalized.index('меню')
+    except ValueError:
+        i1 = -1
+
+    try:
+        i2 = normalized.index('текст')
+    except ValueError:
+        i2 = -1
+
+    try:
+        i3 = normalized.index('кнопка')
+    except ValueError:
+        i3 = -1
+
+    try:
+        i4 = normalized.index('ссылка')
+    except ValueError:
+        i4 = -1
+
+    try:
+        i5 = normalized.index('пункт')
+    except ValueError:
+        i5 = -1
+
+    try:
+        i6 = normalized.index('картинка')
+    except ValueError:
+        i6 = -1
+
+    i = max(i1, i2, i3, i4, i5, i6)
+    if i > 0:
+        return ' '.join(original[i + 1:])
+    else:
+        return None
 
 
 def parse(text):
@@ -140,18 +213,35 @@ def parse(text):
         r = {
             'command': f.command,
             'item': f.item,
-            'color': f.color,
         }
+
+        props = {}
+
+        if f.color is not None:
+            if f.color in COLOR_KEYWORDS:
+                props['color'] = COLOR_KEYWORDS[f.color]
+
         if f.position is not None:
-            r['position'] = {
+            props['position'] = {
                 'rele': f.position.relevancy,
                 'item': f.position.item,
             }
+
+        t = find_free_text(text)
+        if t is not None and len(t) > 0 and f.command != 'edit':
+            props['freetext'] = t
+
+        if f.command == 'create' and f.item == 'image' and 'freetext' in props:
+            props['url'] = images.isearch(t)
+
+        r['props'] = props
+
         result.append(r)
     return result
 
 
-# for text in TEST_CASES_2:
-#     print('-')
-#     print(text)
-#     print(parse(text))
+
+for text in TEST_CASES_3:
+    print('-')
+    print(text)
+    print(parse(text))
