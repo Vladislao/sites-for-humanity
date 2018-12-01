@@ -6,8 +6,8 @@
 
 <script>
 import Agent from "@/Agent";
-import AudioRecorder from "./utils/audio";
-import defaultState, { dispatch } from "./utils/state";
+import AudioRecorder from "@/utils/audio";
+import defaultState, { dispatch } from "@/utils/state";
 
 export default {
   name: "App",
