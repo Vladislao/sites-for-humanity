@@ -13,7 +13,7 @@
     export default {
         name: 'Content',
         components: {
-            'nav-component': Nav
+            'nav-component': Nav,
             'content-component': Content
         },
         props: ['config'],
