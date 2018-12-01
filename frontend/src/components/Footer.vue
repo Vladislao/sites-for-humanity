@@ -1,6 +1,6 @@
 <template>
-    <div id="footer" class="footer">
-        <component height="60" v-for="(data, index) in config" :key="index" :is="data.item" :data="data"  />
+    <div id="footer" class="footer" :style="`background-color: ${style.backgroundColor || 'dodgerblue'}`">
+        <component height="60" v-for="(data, index) in items" :key="index" :is="data.item" :data="data"  />
     </div>
 </template>
 
@@ -10,6 +10,15 @@
         name: 'Footer',
         components,
         props: ['config'],
+        computed: {
+            items: function () {
+                return (this.config && this.config.items) || []
+            },
+
+            style: function () {
+                return (this.config && this.config.style) || {}
+            },
+        }
     }
 </script>
 
@@ -18,8 +27,7 @@
         height: 100px;
         display: flex;
         padding: 20px;
-        justify-content: space-around;
-        background-color: dodgerblue;
+        justify-content: space-around
     }
     #footer > *,
     #footer > * {

@@ -87,7 +87,7 @@ const HANDLERS = [
 
       const nextState = { ...state };
       const nextItem = {
-        item: COMPONENTS[item],
+        item: COMPONENTS[item || get(props, "position.item", "text")],
         text: props.freetext,
         url: props.url
       };
@@ -130,9 +130,7 @@ export default {
   header: {
     display: true,
     style: {
-      backgroundColor: null,
-      variant: "info",
-      type: "dark"
+      backgroundColor: "greenyellow"
     },
     brand: {
       display: true,
@@ -146,9 +144,9 @@ export default {
   },
   navBar: {
     position: "left",
+    color: "lightgreen",
     style: {
-      backgroundColor: null,
-      color: null
+      backgroundColor: "lightgreen"
     },
     items: [
       {
@@ -166,6 +164,9 @@ export default {
     ]
   },
   content: {
+    style: {
+      backgroundColor: "lightyellow"
+    },
     left: [
       {
         item: "ImageComponent",
@@ -177,14 +178,19 @@ export default {
     ],
     right: [{ item: "ButtonComponent", text: "button" }]
   },
-  footer: [
-    {
-      item: "ImageComponent",
-      url:
-        "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
+  footer: {
+    style: {
+      backgroundColor: "greenyellow"
     },
-    { item: "TextComponent", text: "qwerty" },
-    { item: "ButtonComponent", text: "button" },
-    { item: "LinkComponent", text: "qwertylink" }
-  ]
+    items: [
+      {
+        item: "ImageComponent",
+        url:
+          "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
+      },
+      { item: "TextComponent", text: "qwerty" },
+      { item: "ButtonComponent", text: "button" },
+      { item: "LinkComponent", text: "qwertylink" }
+    ]
+  }
 };
