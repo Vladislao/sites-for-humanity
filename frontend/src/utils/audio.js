@@ -70,9 +70,10 @@ export default class AudioController {
       this.onAction([
         {
           command: "create",
-          item: "navbar",
+          item: "menuitem",
           props: {
-            position: "totop"
+            // position: "totop"
+            freetext: "KLSJDgkj"
           }
         }
       ]);

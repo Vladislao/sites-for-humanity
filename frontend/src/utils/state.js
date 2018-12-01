@@ -11,13 +11,24 @@ const filterFromList = (obj, path, filter) => {
   return set(obj, path, list.filter(filter));
 };
 
+const POSITIONS = {
+  totop: "top",
+  tobottom: "bottom",
+  toleft: "left",
+  toright: "right"
+};
+
 // [[command, item, context], handler]
 const HANDLERS = [
   [
-    [/create/, /navbar/, /.*/],
+    [/create|move/, /navbar/, /.*/],
     (state, { props }) => {
       const nextState = { ...state, current: "navBar" };
-      return set(nextState, "navBar.position", props.position);
+      return set(
+        nextState,
+        "navBar.position",
+        POSITIONS[props.position] || "top"
+      );
     }
   ],
   [
@@ -28,14 +39,14 @@ const HANDLERS = [
     }
   ],
   [
-    ([/create/, /menuitem/, /.*/],
+    [/create/, /menuitem/, /.*/],
     (state, { props }) => {
       const nextState = { ...state, current: "navBar" };
-      return pushToList(nextState, "navBar.nav.items", {
+      return pushToList(nextState, "navBar.items", {
         text: props.freetext,
         url: ""
       });
-    })
+    }
   ],
   [
     [/delete/, /menuitem/, /.*/],
@@ -43,7 +54,7 @@ const HANDLERS = [
       const nextState = { ...state, current: "navBar" };
       return filterFromList(
         nextState,
-        "navBar.nav.items",
+        "navBar.items",
         v => v.text !== props.freetext
       );
     }
@@ -63,8 +74,8 @@ const getHandler = (action, currentContext) => {
 
 export const dispatch = (state, actions) => {
   return actions.reduce((acc, action) => {
-    const handler = getHandler(action, acc.current);
-    return handler(acc, action);
+    const handler = getHandler(action, acc.current)[1];
+    return handler ? handler(acc, action) : acc;
   }, state);
 };
 
@@ -73,8 +84,8 @@ export default {
     display: true,
     style: {
       backgroundColor: null,
-      variant: 'info',
-      type: 'dark'
+      variant: "info",
+      type: "dark"
     },
     brand: {
       display: true,
@@ -83,11 +94,11 @@ export default {
       style: {
         backgroundColor: null,
         color: null
-      },            
+      }
     }
   },
   navBar: {
-    position: 'left', //top || right || left
+    position: "left",
     style: {
       backgroundColor: null,
       color: null

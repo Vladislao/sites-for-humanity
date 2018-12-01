@@ -47,13 +47,13 @@ export default {
     this.available = recorder.init();
 
     window.addEventListener("keydown", e => {
-      if (e.keyCode === 32 && this.available) {
+      if (e.keyCode === 84 && this.available) {
         e.stopPropagation();
         this.recorder.startRecording();
       }
     });
     window.addEventListener("keyup", e => {
-      if (e.keyCode === 32 && this.available) {
+      if (e.keyCode === 84 && this.available) {
         e.stopPropagation();
         this.recorder.stopRecording();
       }
