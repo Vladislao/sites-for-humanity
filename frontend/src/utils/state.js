@@ -109,8 +109,6 @@ export default {
     },
     brand: {
       display: true,
-      text: "Brend",
-      imgSrc: "https://placekitten.com/g/30/30",
       style: {
         backgroundColor: null,
         color: null
@@ -118,7 +116,7 @@ export default {
     }
   },
   navBar: {
-    position: "left",
+    position: "top",
     color: 'lightgreen',
     style: {
       backgroundColor: "lightgreen",

@@ -1,5 +1,5 @@
 <template>
-    <div id="content">
+    <div id="content" :style="`background-color: ${style.backgroundColor || 'white'}`">
         <div class="card" v-if="left.length + right.length">
             <div class="left-column">
                 <component width="500" height="500" v-for="(data, index) in left" :key="index" :is="data.item" :data="data"  />
@@ -24,7 +24,10 @@
             },
             right: function () {
                 return (this.data && this.data.right) || []
-            }
+            },
+            style: function () {
+                return (this.data && this.data.style) || {}
+            },
         }
     }
 </script>
@@ -40,6 +43,7 @@
         padding: 20px;
         border: 5px dashed green;
         flex-direction: row;
+        background-color: transparent;
     }
     #content .card-body .left-column > *,
     #content .card-body .right-column > * {
