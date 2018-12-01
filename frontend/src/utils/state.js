@@ -12,6 +12,13 @@ const filterFromList = (obj, path, filter) => {
   return set(obj, path, list.filter(filter));
 };
 
+const COMPONENTS = {
+  button: "ButtonComponent",
+  text: "TextComponent",
+  href: "LinkComponent",
+  image: "ImageComponent"
+};
+
 const POSITIONS = {
   totop: "top",
   tobottom: "bottom",
@@ -32,7 +39,7 @@ const HANDLERS = [
     }
   ],
   [
-    ([/create|move/, /navbar/, /.*/],
+    [/create|move/, /navbar/, /.*/],
     (state, { props }) => {
       const nextState = { ...state, current: "navbar" };
       return set(
@@ -40,7 +47,7 @@ const HANDLERS = [
         "navBar.position",
         POSITIONS[get(props, "position.rele", "totop")]
       );
-    })
+    }
   ],
   [
     [/delete/, /navbar/, /.*/],
@@ -72,13 +79,31 @@ const HANDLERS = [
   ],
   [
     [/create/, /text|image|button|href/, /.*/],
-    (state, { props }) => {
+    (state, { item, props }) => {
       const currentContext = state.current || "content";
       const context = ["content", "footer"].includes(currentContext)
         ? currentContext
         : "content";
 
-      const nextState = { ...state, current: context };
+      const nextState = { ...state };
+      const nextItem = {
+        item: COMPONENTS[item || get(props, "position.item", "text")],
+        text: props.freetext,
+        url: props.url
+      };
+
+      console.log(nextItem);
+
+      if (context === "footer") {
+        return pushToList(nextState, "footer.items", nextItem);
+      } else {
+        const positionCurrent =
+          POSITIONS[get(props, "position.rele", "toleft")];
+        const position = ["left", "right"].includes(positionCurrent)
+          ? positionCurrent
+          : "left";
+        return pushToList(nextState, `content.${position}`, nextItem);
+      }
     }
   ]
 ];
@@ -105,14 +130,10 @@ export default {
   header: {
     display: true,
     style: {
-      backgroundColor: null,
-      variant: "info",
-      type: "dark"
+      backgroundColor: "greenyellow"
     },
     brand: {
       display: true,
-      text: "Brend",
-      imgSrc: "https://placekitten.com/g/30/30",
       style: {
         backgroundColor: null,
         color: null
@@ -121,9 +142,9 @@ export default {
   },
   navBar: {
     position: "left",
+    color: "lightgreen",
     style: {
-      backgroundColor: null,
-      color: null
+      backgroundColor: "lightgreen"
     },
     items: [
       {
@@ -141,6 +162,9 @@ export default {
     ]
   },
   content: {
+    style: {
+      backgroundColor: "lightyellow"
+    },
     left: [
       {
         item: "ImageComponent",
@@ -152,10 +176,19 @@ export default {
     ],
     right: [{ item: "ButtonComponent", text: "button" }]
   },
-  footer: [
-    {item: 'ImageComponent', url: 'http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg'},
-    {item: 'TextComponent', text: 'qwerty'},
-    {item: 'ButtonComponent', text: 'button'},
-    {item: 'LinkComponent', text: 'qwertylink'},
-  ],
+  footer: {
+    style: {
+      backgroundColor: "greenyellow"
+    },
+    items: [
+      {
+        item: "ImageComponent",
+        url:
+          "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
+      },
+      { item: "TextComponent", text: "qwerty" },
+      { item: "ButtonComponent", text: "button" },
+      { item: "LinkComponent", text: "qwertylink" }
+    ]
+  }
 };

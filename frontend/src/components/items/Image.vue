@@ -5,7 +5,7 @@
 <script>
     export default {
         name: 'ImageComponent',
-        props: ['data'],
+        props: ['data', 'width', 'height'],
     }
 </script>
 
