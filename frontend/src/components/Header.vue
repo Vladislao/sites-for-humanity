@@ -1,20 +1,16 @@
 <template>
     <div id="header" class="border-bottom bg-light text-dark">
         <b-navbar 
-            v-bind:variant="config.style.variant" 
-            v-bind:type="config.style.type" 
+            v-bind:variant="style.variant" 
+            v-bind:type="style.type" 
             toggleable="md" 
-            v-bind:style="{ backgroundColor: config.style.backgroundColor }">
-            <b-navbar-brand id="brand" href="#" v-if="config.brand.display">
-                <span 
-                    v-if="config.brand.text" 
-                    v-bind:style="{ 
-                        backgroundColor: config.brand.style.backgroundColor, 
-                        color: config.brand.style.color
-                    }">
-                    {{ config.brand.text }}
+            v-bind:style="{ backgroundColor: style.backgroundColor }">
+            <b-navbar-brand id="brand" href="#" v-if="brand.display">
+                <span v-if="brand.text">
+                    {{ brand.text }}
                 </span>
-                <img v-else-if="config.brand.imgSrc" v-bind:src="config.brand.imgSrc">
+                <img v-else-if="brand.imgSrc" v-bind:src="brand.imgSrc">
+                <span v-else>&copy; Narod.ucoz.com</span>
             </b-navbar-brand>
             <nav-component v-if="navbarConfig.position === 'top'" v-bind:config="navbarConfig"></nav-component>
             <!-- <b-nav class="navbar-nav">
@@ -41,9 +37,14 @@
         components: {
             'nav-component': Nav
         },
-        data: function () {
-            console.log(this);
-            return {}
+        computed: {
+            brand: function () {
+                return (this.config && this.config.brand) || {}
+            },
+
+            style: function () {
+                return (this.config && this.config.style) || {}
+            },
         }
     }
 </script>
@@ -51,5 +52,9 @@
 <style scoped>
     #header {
         min-height: 50px;
+    }
+    #brand {
+        color: purple;
+        text-decoration: underline;
     }
 </style>
