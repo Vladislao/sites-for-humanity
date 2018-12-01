@@ -12,6 +12,11 @@ RE_WORDS = re.compile(r'[а-яА-Яa-zA-Z0-9]+')
 morph = pymorphy2.MorphAnalyzer()
 
 
+context = {
+    'edit_in': 'none'
+}
+
+
 Relevancy = fact(
     'Relevancy',
     ['relevancy', 'item']
@@ -38,6 +43,8 @@ RELEVANCY_KEYWORDS = {
 
     'справа от': 'toright',
     'справа': 'toright',
+
+    'в': 'in',
 }
 
 RELEVANCY = morph_pipeline(
@@ -68,6 +75,7 @@ ITEM_KEYWORDS = {
     'кнопка': 'button',
     'ссылка с текст': 'href',
     'ссылка': 'href',
+    'шрифт на': 'font',
 }
 
 ITEM = morph_pipeline(
@@ -87,9 +95,12 @@ POSITION = or_(
 COLOR_KEYWORDS = {
     'красный': 'red',
     'желтый': 'yellow',
+    'оранжевый': 'orange',
+    'лаймовый': 'lime',
     'зеленый': 'green',
     'синий': 'blue',
-    'фиолетовый': 'violet',
+    'голубой': 'deepskyblue',
+    'фиолетовый': 'purple',
     'белый': 'white',
     'черный': 'black',
     'серый': 'gray',
@@ -106,6 +117,7 @@ USE_COLOR = or_(
 COMMAND_KEYWORDS = {
     'редактировать': 'edit',
     'редактирование': 'edit',
+    'поменять': 'update',
     'создать': 'create',
     'добавить': 'create',
     'удалить': 'delete',
@@ -199,7 +211,12 @@ def find_free_text(text):
     except ValueError:
         i6 = -1
 
-    i = max(i1, i2, i3, i4, i5, i6)
+    try:
+        i7 = normalized.index('шрифт')
+    except ValueError:
+        i7 = -1
+
+    i = max(i1, i2, i3, i4, i5, i6, i7)
     if i > 0:
         return ' '.join(original[i + 1:])
     else:
@@ -215,6 +232,9 @@ def parse(text):
             'item': f.item,
         }
 
+        if f.command == 'edit':
+            context['edit_in'] = f.position.item
+
         props = {}
 
         if f.color is not None:
@@ -222,10 +242,18 @@ def parse(text):
                 props['color'] = COLOR_KEYWORDS[f.color]
 
         if f.position is not None:
-            props['position'] = {
-                'rele': f.position.relevancy,
-                'item': f.position.item,
-            }
+            if f.position.relevancy == 'in':
+                if context['edit_in'] != f.position.item:
+                    result.append({
+                        'command': 'edit',
+                        'item': f.position.item,
+                    })
+                    context['edit_in'] = f.position.item
+            else:
+                props['position'] = {
+                    'rele': f.position.relevancy,
+                    'item': f.position.item,
+                }
 
         t = find_free_text(text)
         if t is not None and len(t) > 0 and f.command != 'edit':
@@ -238,7 +266,6 @@ def parse(text):
 
         result.append(r)
     return result
-
 
 
 for text in TEST_CASES_3:
