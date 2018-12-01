@@ -48,6 +48,7 @@ ITEM_KEYWORDS = {
     'навигационный меню': 'navbar',
     'боковой меню': 'navbar',
     'меню': 'navbar',
+    'под меню': 'menuitem',
     'пункт меню': 'menuitem',
     'заголовок': 'header',
     'шапка': 'header',
