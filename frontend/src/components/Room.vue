@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-    <header-component v-if="config.header.display"></header-component>
-    <nav-component v-if="config.navBar.display" v-bind:config="config.navBar.nav"></nav-component>
+    <header-component v-if="config.header.display" v-bind:config="config.header" v-bind:navbarConfig="config.navBar"></header-component>
     <body-component v-bind:config="config"></body-component>
     <footer-component v-if="config.footer" v-bind:config="config.footer"></footer-component>
   </div>

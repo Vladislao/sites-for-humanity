@@ -11,11 +11,11 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/api": {
-        target: "http://84f32008.ngrok.io",
+        target: "http://95.213.184.160:3000",
         changeOrigin: true
       },
       "/socket.io": {
-        target: "http://84f32008.ngrok.io",
+        target: "http://95.213.184.160:3000",
         changeOrigin: true
       }
     },
