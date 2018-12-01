@@ -1,15 +1,21 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Start from '@/components/Start'
+import Vue from "vue";
+import Router from "vue-router";
+import Start from "@/components/Start";
+import Room from "@/components/Room";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Start',
+      path: "/",
+      name: "Start",
       component: Start
+    },
+    {
+      path: "/:room",
+      name: "Room",
+      component: Room
     }
   ]
-})
+});
