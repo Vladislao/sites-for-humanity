@@ -130,5 +130,10 @@ export default {
     ],
     right: [{ item: "ButtonComponent", text: "button" }]
   },
-  footer: false
+  footer: [
+    {item: 'ImageComponent', url: 'http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg'},
+    {item: 'TextComponent', text: 'qwerty'},
+    {item: 'ButtonComponent', text: 'button'},
+    {item: 'LinkComponent', text: 'qwertylink'},
+  ],
 };

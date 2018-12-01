@@ -1,7 +1,7 @@
 <template>
     <div id="body">
         <nav-component v-if="config.navBar.position === 'left'" v-bind:config="config.navBar"></nav-component>
-        <content-component v-bind:data="config.content" />
+        <content-component v-if="config.content" v-bind:data="config.content" />
         <nav-component v-if="config.navBar.position === 'right'" v-bind:config="config.navBar"></nav-component>
     </div>
 </template>
