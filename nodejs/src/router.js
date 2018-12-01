@@ -1,5 +1,5 @@
 const { resolve } = require("url");
-const { Router } = require("express");
+const express = require("express");
 const request = require("request");
 const config = require("config3");
 const shortid = require("shortid");
@@ -8,21 +8,24 @@ const store = require("./store");
 
 const proxy = to => (req, res, next) => {
   try {
+    console.log(resolve(config.brain, to));
     return req
       .pipe(request(resolve(config.brain, to)))
       .on("error", e => {
         console.error(e);
+        res.status(500).send(e);
       })
       .pipe(res)
       .on("error", e => {
         console.error(e);
+        res.status(500).send(e);
       });
   } catch (e) {
     return next(e);
   }
 };
 
-const router = new Router();
+const router = express.Router();
 
 router
   .post("/voice", proxy("/api/voice"))
