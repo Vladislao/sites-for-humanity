@@ -1,5 +1,5 @@
 {
-  "name": "nodejs",
+  "name": "sites-for-humanity-nodejs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,6 +15,7 @@
     "express": "^4.16.4",
     "prettier": "^1.15.3",
     "request": "^2.88.0",
+    "shortid": "^2.2.14",
     "socket.io": "^2.2.0"
   }
 }

@@ -10,7 +10,7 @@ Install Anaconda (or Miniconda). Then run:
 conda create -n Hack2018 python=3.6
 source activate Hack2018
 
-pip install pymorphy2 bottle dialogflow pydub
+pip install pymorphy2 yargy bottle dialogflow pydub
 pip install -U pymorphy2-dicts-ru
 ```
 
