@@ -14,14 +14,28 @@ const filterFromList = (obj, path, filter) => {
 // [[command, item, context], handler]
 const HANDLERS = [
   [
-    [/create/, /menuitem/, /.*/],
+    [/create/, /navbar/, /.*/],
+    (state, { props }) => {
+      const nextState = { ...state, current: "navBar" };
+      return set(nextState, "navBar.position", props.position);
+    }
+  ],
+  [
+    [/delete/, /navbar/, /.*/],
+    (state, { props }) => {
+      const nextState = { ...state, current: "default" };
+      return set(nextState, "navBar.position", null);
+    }
+  ],
+  [
+    ([/create/, /menuitem/, /.*/],
     (state, { props }) => {
       const nextState = { ...state, current: "navBar" };
       return pushToList(nextState, "navBar.nav.items", {
         text: props.freetext,
         url: ""
       });
-    }
+    })
   ],
   [
     [/delete/, /menuitem/, /.*/],
@@ -41,8 +55,8 @@ const getHandler = (action, currentContext) => {
     const [command, item, context] = v[0];
     return (
       command.test(action.command) &&
-      item.test(action.item) &&
-      context.test(currentContext)
+      item.test(action.item || "") &&
+      context.test(currentContext || "")
     );
   });
 };
