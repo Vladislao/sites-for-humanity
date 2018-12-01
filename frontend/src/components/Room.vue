@@ -12,6 +12,7 @@ import Header from "./Header.vue";
 import Nav from './Nav.vue';
 import Body from "./Body.vue";
 import Footer from "./Footer.vue";
+import defaultState, { dispatch } from "@/utils/state";
 
 export default {
   name: "Room",
@@ -22,87 +23,7 @@ export default {
     "footer-component": Footer
   },
   data: () => {
-    return {
-      config: {
-        header: {
-          display: true
-        },
-        navBar: {
-          display: true,
-          nav: {
-            display: true,
-            style: {
-              backgroundColor: null,
-              variant: 'info',
-              type: 'dark'
-            },
-            brand: {
-              display: true,
-              text: "Brend",
-              imgSrc: "https://placekitten.com/g/30/30",
-              style: {
-                backgroundColor: null,
-                color: null
-              },
-            },
-            nav: {
-              display: true,
-              style: {
-                backgroundColor: null,
-                color: null
-              },
-              items: [
-                {
-                  text: "Active",
-                  url: ""
-                },
-                {
-                  text: "Link",
-                  url: ""
-                },
-                {
-                  text: "Another Link",
-                  url: ""
-                }
-              ]
-            }
-          }
-        },
-        rightPanel: {
-          display: true,
-          nav: {
-            display: true,
-            items: [
-                {
-                    text: 'Item 1',
-                    url: ''
-                },
-                {
-                    text: 'Item 2',
-                    url: ''
-                },
-            ]
-          }
-        },
-        leftPanel: {
-          display: true,
-          nav: {
-            display: true,
-            items: [
-                {
-                    text: 'Мишки',
-                    url: ''
-                },
-                {
-                    text: 'Шишки',
-                    url: ''
-                },
-            ]
-          }
-        },
-        footer: false
-      }
-    };
+    return {config: defaultState};
   }
 };
 </script>
