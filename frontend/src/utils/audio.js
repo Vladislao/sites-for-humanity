@@ -64,22 +64,8 @@ export default class AudioController {
       var data = new FormData();
       data.append("file", blob, "record.wav");
 
-      console.log("[disabled] sending wav...");
-      // request.send(data);
-
-      this.onAction([
-        {
-          command: "edit",
-          item: "header"
-          // props: {
-          //   position: {
-          //     rele: "totop",
-          //     item: "menu"
-          //   },
-          //   freetext: "KLSJDgkj"
-          // }
-        }
-      ]);
+      console.log("sending wav...");
+      request.send(data);
     });
 
     this.recorder.clear();
