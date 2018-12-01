@@ -71,6 +71,11 @@ export const dispatch = (state, actions) => {
 export default {
   header: {
     display: true,
+    style: {
+      backgroundColor: null,
+      variant: 'info',
+      type: 'dark'
+    },
     brand: {
       display: true,
       text: "Brend",
@@ -78,33 +83,29 @@ export default {
       style: {
         backgroundColor: null,
         color: null
-      }
+      },            
     }
   },
   navBar: {
-    position: null,
-    style: {},
-    nav: {
-      style: {
-        backgroundColor: null,
-        variant: "info",
-        type: "dark"
+    position: 'left', //top || right || left
+    style: {
+      backgroundColor: null,
+      color: null
+    },
+    items: [
+      {
+        text: "Active",
+        url: ""
       },
-      items: [
-        {
-          text: "Active",
-          url: ""
-        },
-        {
-          text: "Link",
-          url: ""
-        },
-        {
-          text: "Another Link",
-          url: ""
-        }
-      ]
-    }
+      {
+        text: "Link",
+        url: ""
+      },
+      {
+        text: "Another Link",
+        url: ""
+      }
+    ]
   },
   content: {
     left: [
