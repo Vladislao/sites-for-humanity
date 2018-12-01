@@ -3,7 +3,7 @@
     <header-component v-if="config.header.display"></header-component>
     <nav-component v-if="config.navBar.display" v-bind:config="config.navBar.nav"></nav-component>
     <body-component v-bind:config="config"></body-component>
-    <footer-component v-if="config.footer"></footer-component>
+    <footer-component v-if="config.footer" v-bind:config="config.footer"></footer-component>
   </div>
 </template>
 
