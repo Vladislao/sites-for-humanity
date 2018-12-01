@@ -43,9 +43,13 @@ const HANDLERS = [
     (state, { props }) => {
       const nextState = { ...state, current: "navbar" };
       return set(
-        nextState,
-        "navBar.position",
-        POSITIONS[get(props, "position.rele", "totop")]
+        set(
+          nextState,
+          "navBar.position",
+          POSITIONS[get(props, "position.rele", "totop")]
+        ),
+        "navBar.style.backgroundColor",
+        props.color || "lightgreen"
       );
     }
   ],

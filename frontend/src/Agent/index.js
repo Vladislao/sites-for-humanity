@@ -9,10 +9,15 @@ class Agent {
     clippy.load("Genie", agent => {
       this.agent = agent;
       const app = document.getElementById("app");
-      const { width: appWidth, height: appHeight } = app.getBoundingClientRect();
+      const {
+        width: appWidth,
+        height: appHeight
+      } = app.getBoundingClientRect();
       agent.show();
       agent.moveTo(0, 0);
-      agent.speak('Приветствую Вас! Чтобы начать работу, удерживайте пробел и говорите!')
+      agent.speak(
+        "Приветствую Вас! Чтобы начать работу, удерживайте t и говорите!"
+      );
     });
   }
 
