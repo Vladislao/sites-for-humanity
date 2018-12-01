@@ -83,6 +83,7 @@ ITEM_KEYWORDS = {
     'контент': 'content',
     'тело': 'content',
     'основный секция': 'content',
+    'составной секция': 'content',
 }
 
 ITEM = morph_pipeline(
