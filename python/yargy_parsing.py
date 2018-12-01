@@ -75,7 +75,9 @@ ITEM_KEYWORDS = {
     'кнопка': 'button',
     'ссылка с текст': 'href',
     'ссылка': 'href',
-    'шрифт на': 'font',
+    'контент': 'content',
+    'тело': 'content',
+    'основной секция': 'content',
 }
 
 ITEM = morph_pipeline(
