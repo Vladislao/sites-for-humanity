@@ -134,8 +134,6 @@ export default {
     },
     brand: {
       display: true,
-      text: "Brend",
-      imgSrc: "https://placekitten.com/g/30/30",
       style: {
         backgroundColor: null,
         color: null
