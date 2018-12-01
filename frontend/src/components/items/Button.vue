@@ -1,5 +1,5 @@
 <template>
-    <button>{{data.text || ''}}</button>
+    <b-button>{{data.text || ''}}</b-button>
 </template>
 
 <script>
@@ -10,4 +10,9 @@
 </script>
 
 <style scoped>
+.btn {
+    color: purple;
+    background-color: yellow;
+    border-radius: 0;
+}
 </style>

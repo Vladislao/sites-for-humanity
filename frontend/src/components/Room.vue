@@ -2,7 +2,7 @@
   <div class="wrapper">
     <header-component v-if="config.header.display" v-bind:config="config.header" v-bind:navbarConfig="config.navBar"></header-component>
     <body-component v-bind:config="config"></body-component>
-    <footer-component v-if="config.footer"></footer-component>
+    <footer-component v-if="config.footer" v-bind:config="config.footer"></footer-component>
   </div>
 </template>
 
