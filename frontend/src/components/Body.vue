@@ -1,20 +1,20 @@
 <template>
     <div id="body">
-        <panel-component v-if="config.leftPanel.display" v-bind:config="config.leftPanel"></panel-component>
+        <nav-component v-if="config.navBar.position === 'left'" v-bind:config="config.navBar"></nav-component>
         <div id="content">
             content
         </div>
-        <panel-component v-if="config.rightPanel.display" v-bind:config="config.rightPanel"></panel-component>
+        <nav-component v-if="config.navBar.position === 'right'" v-bind:config="config.navBar"></nav-component>
     </div>
 </template>
 
 <script>
-    import Panel from './Panel.vue';
+    import Nav from './Nav.vue';
 
     export default {
         name: 'Content',
         components: {
-            'panel-component': Panel
+            'nav-component': Nav
         },
         props: ['config'],
         data: () => {

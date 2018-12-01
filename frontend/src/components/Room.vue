@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-    <header-component v-if="config.header.display"></header-component>
-    <nav-component v-if="config.navBar.display" v-bind:config="config.navBar.nav"></nav-component>
+    <header-component v-if="config.header.display" v-bind:config="config.header" v-bind:navbarConfig="config.navBar"></header-component>
     <body-component v-bind:config="config"></body-component>
     <footer-component v-if="config.footer"></footer-component>
   </div>
@@ -25,80 +24,42 @@ export default {
     return {
       config: {
         header: {
-          display: true
-        },
-        navBar: {
           display: true,
-          nav: {
+          style: {
+            backgroundColor: null,
+            variant: 'info',
+            type: 'dark'
+          },
+          brand: {
             display: true,
+            text: "Brend",
+            imgSrc: "https://placekitten.com/g/30/30",
             style: {
               backgroundColor: null,
-              variant: 'info',
-              type: 'dark'
+              color: null
+            },            
+          }
+        },
+        navBar: {
+          position: 'left', //top || right || left
+          style: {
+            backgroundColor: null,
+            color: null
+          },
+          items: [
+            {
+              text: "Active",
+              url: ""
             },
-            brand: {
-              display: true,
-              text: "Brend",
-              imgSrc: "https://placekitten.com/g/30/30",
-              style: {
-                backgroundColor: null,
-                color: null
-              },
+            {
+              text: "Link",
+              url: ""
             },
-            nav: {
-              display: true,
-              style: {
-                backgroundColor: null,
-                color: null
-              },
-              items: [
-                {
-                  text: "Active",
-                  url: ""
-                },
-                {
-                  text: "Link",
-                  url: ""
-                },
-                {
-                  text: "Another Link",
-                  url: ""
-                }
-              ]
+            {
+              text: "Another Link",
+              url: ""
             }
-          }
-        },
-        rightPanel: {
-          display: true,
-          nav: {
-            display: true,
-            items: [
-                {
-                    text: 'Item 1',
-                    url: ''
-                },
-                {
-                    text: 'Item 2',
-                    url: ''
-                },
-            ]
-          }
-        },
-        leftPanel: {
-          display: true,
-          nav: {
-            display: true,
-            items: [
-                {
-                    text: 'Мишки',
-                    url: ''
-                },
-                {
-                    text: 'Шишки',
-                    url: ''
-                },
-            ]
-          }
+          ]
         },
         footer: false
       }
