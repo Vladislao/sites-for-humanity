@@ -25,7 +25,7 @@ def recognize_audio(session_id, data_stream):
     wav_data.export("file1.wav", format="wav")
 
     audio_encoding = dialogflow.enums.AudioEncoding.AUDIO_ENCODING_LINEAR_16
-    sample_rate_hertz = 44100
+    sample_rate_hertz = 48000
 
     audio_config = dialogflow.types.InputAudioConfig(
         audio_encoding=audio_encoding, language_code='ru',
