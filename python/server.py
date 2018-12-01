@@ -43,6 +43,14 @@ def recognize_audio(session_id, data_stream):
     return response_text
 
 
+@bottle.post('/api/text')
+def receive_voice():
+    # current_session = uuid.uuid4()
+    # response = recognize_audio(current_session, bottle.request.form['text'])
+    structured = yp.parse(bottle.request.params['text'])
+    return json.dumps(structured, ensure_ascii=False)
+
+
 @bottle.post('/api/voice')
 def receive_voice():
     current_session = uuid.uuid4()

@@ -6,7 +6,9 @@ from yargy.pipelines import morph_pipeline
 import re
 import pymorphy2
 
-RE_WORDS = re.compile(r'[а-яa-z0-9]+')
+import images
+
+RE_WORDS = re.compile(r'[а-яА-Яa-zA-Z0-9]+')
 morph = pymorphy2.MorphAnalyzer()
 
 
@@ -50,6 +52,7 @@ ITEM_KEYWORDS = {
     'меню': 'navbar',
     'под меню': 'menuitem',
     'пункт меню': 'menuitem',
+    'пункт': 'menuitem',
     'заголовок': 'header',
     'шапка': 'header',
     'подвал': 'footer',
@@ -58,10 +61,13 @@ ITEM_KEYWORDS = {
     'текстовый блок': 'text',
     'логотип': 'logo',
     'картинка': 'image',
+    'картинка на фон': 'image',
     'текст': 'text',
     'абзац с текст': 'text',
     'кнопка с текст': 'button',
+    'кнопка': 'button',
     'ссылка с текст': 'href',
+    'ссылка': 'href',
 }
 
 ITEM = morph_pipeline(
@@ -98,6 +104,8 @@ USE_COLOR = or_(
 )
 
 COMMAND_KEYWORDS = {
+    'редактировать': 'edit',
+    'редактирование': 'edit',
     'создать': 'create',
     'добавить': 'create',
     'удалить': 'delete',
@@ -157,8 +165,8 @@ for text in TEST_CASES_3:
 
 
 def find_free_text(text):
-    original = [word for word in RE_WORDS.findall(text.lower())]
-    normalized = [morph.parse(word)[0].normal_form for word in original]
+    original = [word for word in RE_WORDS.findall(text)]
+    normalized = [morph.parse(word.lower())[0].normal_form for word in original]
 
     print(normalized)
     try:
@@ -171,7 +179,27 @@ def find_free_text(text):
     except ValueError:
         i2 = -1
 
-    i = max(i1, i2)
+    try:
+        i3 = normalized.index('кнопка')
+    except ValueError:
+        i3 = -1
+
+    try:
+        i4 = normalized.index('ссылка')
+    except ValueError:
+        i4 = -1
+
+    try:
+        i5 = normalized.index('пункт')
+    except ValueError:
+        i5 = -1
+
+    try:
+        i6 = normalized.index('картинка')
+    except ValueError:
+        i6 = -1
+
+    i = max(i1, i2, i3, i4, i5, i6)
     if i > 0:
         return ' '.join(original[i + 1:])
     else:
@@ -200,8 +228,11 @@ def parse(text):
             }
 
         t = find_free_text(text)
-        if t is not None:
+        if t is not None and len(t) > 0 and f.command != 'edit':
             props['freetext'] = t
+
+        if f.command == 'create' and f.item == 'image' and 'freetext' in props:
+            props['url'] = images.isearch(t)
 
         r['props'] = props
 
