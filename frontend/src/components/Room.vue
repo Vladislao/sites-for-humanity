@@ -1,13 +1,15 @@
 <template>
   <div class="wrapper">
-    <header-component v-if="config.header.display" v-bind:config="config.header"></header-component>
-    <body-component v-bind:data="config"></body-component>
+    <header-component v-if="config.header.display"></header-component>
+    <nav-component v-if="config.navBar.display" v-bind:config="config.navBar.nav"></nav-component>
+    <body-component v-bind:config="config"></body-component>
     <footer-component v-if="config.footer"></footer-component>
   </div>
 </template>
 
 <script>
 import Header from "./Header.vue";
+import Nav from './Nav.vue';
 import Body from "./Body.vue";
 import Footer from "./Footer.vue";
 
@@ -15,6 +17,7 @@ export default {
   name: "Room",
   components: {
     "header-component": Header,
+    "nav-component": Nav,
     "body-component": Body,
     "footer-component": Footer
   },
@@ -22,16 +25,32 @@ export default {
     return {
       config: {
         header: {
+          display: true
+        },
+        navBar: {
           display: true,
           nav: {
             display: true,
+            style: {
+              backgroundColor: null,
+              variant: 'info',
+              type: 'dark'
+            },
             brand: {
               display: true,
               text: "Brend",
-              imgSrc: "https://placekitten.com/g/30/30"
+              imgSrc: "https://placekitten.com/g/30/30",
+              style: {
+                backgroundColor: null,
+                color: null
+              },
             },
             nav: {
               display: true,
+              style: {
+                backgroundColor: null,
+                color: null
+              },
               items: [
                 {
                   text: "Active",
@@ -49,8 +68,38 @@ export default {
             }
           }
         },
-        rightPanel: false,
-        leftPanel: false,
+        rightPanel: {
+          display: true,
+          nav: {
+            display: true,
+            items: [
+                {
+                    text: 'Item 1',
+                    url: ''
+                },
+                {
+                    text: 'Item 2',
+                    url: ''
+                },
+            ]
+          }
+        },
+        leftPanel: {
+          display: true,
+          nav: {
+            display: true,
+            items: [
+                {
+                    text: 'Мишки',
+                    url: ''
+                },
+                {
+                    text: 'Шишки',
+                    url: ''
+                },
+            ]
+          }
+        },
         footer: false
       }
     };
