@@ -36,7 +36,7 @@ export default {
     moveToUnknown: () => Agent.moveTo("unknown"),
     speak: () =>
       Agent.speak(
-        "Hey! Wana make a cool web page? Then yoy came to the right place!"
+        "Hey! Wana make a cool web page? Then you came to the right place!"
       )
   },
 
@@ -47,6 +47,7 @@ export default {
     this.available = recorder.init();
 
     window.addEventListener("keydown", e => {
+      Agent.play('Hearing_3')
       if (e.keyCode === 84 && this.available) {
         e.stopPropagation();
         this.recorder.startRecording();

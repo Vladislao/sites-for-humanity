@@ -1,5 +1,5 @@
 <template>
-    <b-img :src="data.url" :width="width || 100" :height="height || 100" />
+    <div><b-img :src="data.url" :width="width || 100" :height="height || 100" /></div>
 </template>
 
 <script>

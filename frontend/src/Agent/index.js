@@ -72,6 +72,13 @@ class Agent {
     }
     this.agent.speak(phrase);
   }
+
+  play(animation) {
+    if (!this.agent) {
+      return;
+    }
+    this.agent.play(animation);
+  }
 }
 
 export default new Agent();
