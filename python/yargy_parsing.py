@@ -125,27 +125,29 @@ TEST_CASES_2 = [
 ]
 
 # test
-for text in TEST_CASES_2:
-    print('-')
-    print(text)
-    for match in parser.findall(text):
-        print([_.value for _ in match.tokens])
-        print(match.fact)
+# for text in TEST_CASES_2:
+#     print('-')
+#     print(text)
+#     for match in parser.findall(text):
+#         print([_.value for _ in match.tokens])
+#         print(match.fact)
 
 
 def parse(text):
     result = []
     for match in parser.findall(text):
         f = match.fact
-        result.append({
+        r = {
             'command': f.command,
             'item': f.item,
-            'position': {
+            'color': f.color,
+        }
+        if f.position is not None:
+            r['position'] = {
                 'rele': f.position.relevancy,
                 'item': f.position.item,
-            },
-            'color': f.color,
-        })
+            }
+        result.append(r)
     return result
 
 
