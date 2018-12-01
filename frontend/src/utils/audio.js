@@ -69,12 +69,15 @@ export default class AudioController {
 
       this.onAction([
         {
-          command: "create",
-          item: "menuitem",
-          props: {
-            // position: "totop"
-            freetext: "KLSJDgkj"
-          }
+          command: "edit",
+          item: "header"
+          // props: {
+          //   position: {
+          //     rele: "totop",
+          //     item: "menu"
+          //   },
+          //   freetext: "KLSJDgkj"
+          // }
         }
       ]);
     });
