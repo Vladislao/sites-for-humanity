@@ -78,7 +78,7 @@ const HANDLERS = [
     }
   ],
   [
-    [/create/, /text|image|button|href/, /.*/],
+    [/create/, /.*/, /.*/],
     (state, { item, props }) => {
       const currentContext = state.current || "content";
       const context = ["content", "footer"].includes(currentContext)
@@ -92,8 +92,6 @@ const HANDLERS = [
         url: props.url
       };
 
-      console.log(nextItem);
-
       if (context === "footer") {
         return pushToList(nextState, "footer.items", nextItem);
       } else {
@@ -103,6 +101,36 @@ const HANDLERS = [
           ? positionCurrent
           : "left";
         return pushToList(nextState, `content.${position}`, nextItem);
+      }
+    }
+  ],
+  [
+    [/delete/, /.*/, /.*/],
+    (state, { props }) => {
+      const currentContext = state.current || "content";
+      const context = ["content", "footer"].includes(currentContext)
+        ? currentContext
+        : "content";
+
+      const nextState = { ...state };
+
+      if (context === "footer") {
+        return filterFromList(
+          nextState,
+          "footer.items",
+          v => v.text !== props.freetext
+        );
+      } else {
+        const positionCurrent =
+          POSITIONS[get(props, "position.rele", "toleft")];
+        const position = ["left", "right"].includes(positionCurrent)
+          ? positionCurrent
+          : "left";
+        return filterFromList(
+          nextState,
+          `content.${position}`,
+          v => v.text !== props.freetext
+        );
       }
     }
   ]
@@ -141,24 +169,24 @@ export default {
     }
   },
   navBar: {
-    position: "left",
+    position: null,
     color: "lightgreen",
     style: {
       backgroundColor: "lightgreen"
     },
     items: [
-      {
-        text: "Active",
-        url: ""
-      },
-      {
-        text: "Link",
-        url: ""
-      },
-      {
-        text: "Another Link",
-        url: ""
-      }
+      // {
+      //   text: "Active",
+      //   url: ""
+      // },
+      // {
+      //   text: "Link",
+      //   url: ""
+      // },
+      // {
+      //   text: "Another Link",
+      //   url: ""
+      // }
     ]
   },
   content: {
@@ -166,29 +194,31 @@ export default {
       backgroundColor: "lightyellow"
     },
     left: [
-      {
-        item: "ImageComponent",
-        url:
-          "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
-      },
-      { item: "TextComponent", text: "qwerty" },
-      { item: "LinkComponent", text: "qwertylink" }
+      // {
+      //   item: "ImageComponent",
+      //   url:
+      //     "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
+      // },
+      // { item: "TextComponent", text: "qwerty" },
+      // { item: "LinkComponent", text: "qwertylink" }
     ],
-    right: [{ item: "ButtonComponent", text: "button" }]
+    right: [
+      // { item: "ButtonComponent", text: "button" }
+    ]
   },
   footer: {
     style: {
       backgroundColor: "greenyellow"
     },
     items: [
-      {
-        item: "ImageComponent",
-        url:
-          "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
-      },
-      { item: "TextComponent", text: "qwerty" },
-      { item: "ButtonComponent", text: "button" },
-      { item: "LinkComponent", text: "qwertylink" }
+      // {
+      //   item: "ImageComponent",
+      //   url:
+      //     "http://images5.fanpop.com/image/photos/31000000/haters-gonna-hate-random-31076705-550-413.jpg"
+      // },
+      // { item: "TextComponent", text: "собака" }
+      // { item: "ButtonComponent", text: "button" },
+      // { item: "LinkComponent", text: "qwertylink" }
     ]
   }
 };
