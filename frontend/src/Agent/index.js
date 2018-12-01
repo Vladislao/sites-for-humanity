@@ -32,10 +32,6 @@ class Agent {
     this.moveTo("content");
   }
 
-  moveToContent() {
-    this.moveTo("content");
-  }
-
   getCoordinates(element) {
     const { top, left, bottom, right, centerX, centerY } = getOffset(element);
     const app = document.getElementById("app");
