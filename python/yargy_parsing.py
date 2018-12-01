@@ -40,11 +40,16 @@ RELEVANCY_KEYWORDS = {
 
     'слева от': 'toleft',
     'слева': 'toleft',
+    'лево': 'toleft',
 
     'справа от': 'toright',
     'справа': 'toright',
+    'право': 'toright',
+    'с про': 'toright',
+    'спра': 'toright',
 
     'в': 'in',
+    'из': 'in',
 }
 
 RELEVANCY = morph_pipeline(
@@ -75,7 +80,9 @@ ITEM_KEYWORDS = {
     'кнопка': 'button',
     'ссылка с текст': 'href',
     'ссылка': 'href',
-    'шрифт на': 'font',
+    'контент': 'content',
+    'тело': 'content',
+    'основный секция': 'content',
 }
 
 ITEM = morph_pipeline(
@@ -121,6 +128,8 @@ COMMAND_KEYWORDS = {
     'создать': 'create',
     'добавить': 'create',
     'удалить': 'delete',
+    'убавить': 'delete',
+    'убавь': 'delete',
     'удаль': 'delete',
     'убрать': 'delete',
     'перенести': 'move',
@@ -177,6 +186,7 @@ for text in TEST_CASES_3:
 
 
 def find_free_text(text):
+    print(text)
     original = [word for word in RE_WORDS.findall(text)]
     normalized = [morph.parse(word.lower())[0].normal_form for word in original]
 
@@ -243,12 +253,11 @@ def parse(text):
 
         if f.position is not None:
             if f.position.relevancy == 'in':
-                if context['edit_in'] != f.position.item:
-                    result.append({
-                        'command': 'edit',
-                        'item': f.position.item,
-                    })
-                    context['edit_in'] = f.position.item
+                result.append({
+                    'command': 'edit',
+                    'item': f.position.item,
+                })
+                context['edit_in'] = f.position.item
             else:
                 props['position'] = {
                     'rele': f.position.relevancy,
